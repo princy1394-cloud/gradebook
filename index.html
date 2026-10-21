@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6f2">
+    <title>Gradebook | Student score tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Gradebook home">
+          <span class="brand-mark" aria-hidden="true">G</span>
+          <span>Gradebook</span>
+        </a>
+        <span class="topbar-note">A simple class score tracker</span>
+      </header>
+
+      <main>
+        <section class="intro">
+          <div>
+            <p class="eyebrow">CLASSROOM TOOL</p>
+            <h1>Know how your class is doing.</h1>
+            <p class="intro-copy">Keep student scores organized, spot progress at a glance, and update your roster whenever you need.</p>
+          </div>
+          <button class="button button-primary" id="add-student-button" type="button">
+            <span aria-hidden="true">+</span> Add student
+          </button>
+        </section>
+
+        <section class="stats" aria-label="Class summary">
+          <article class="stat-card">
+            <span class="stat-label">Students</span>
+            <strong class="stat-value" id="student-count">0</strong>
+            <span class="stat-caption">in your class</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Class average</span>
+            <strong class="stat-value" id="class-average">—</strong>
+            <span class="stat-caption">across all scores</span>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Top score</span>
+            <strong class="stat-value" id="top-score">—</strong>
+            <span class="stat-caption" id="top-score-caption">waiting for your first score</span>
+          </article>
+        </section>
+
+        <section class="roster-card" aria-labelledby="roster-heading">
+          <div class="roster-heading">
+            <div>
+              <p class="eyebrow">YOUR ROSTER</p>
+              <h2 id="roster-heading">Student scores</h2>
+            </div>
+            <label class="search-field">
+              <span class="visually-hidden">Search students or subjects</span>
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input id="search-input" type="search" placeholder="Search students..." autocomplete="off">
+            </label>
+          </div>
+
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Student</th>
+                  <th scope="col">Subject</th>
+                  <th scope="col">Score</th>
+                  <th scope="col">Grade</th>
+                  <th scope="col"><span class="visually-hidden">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="student-rows"></tbody>
+            </table>
+            <div class="empty-state" id="empty-state">
+              <span class="empty-icon" aria-hidden="true">✳</span>
+              <h3 id="empty-heading">Your roster starts here</h3>
+              <p id="empty-copy">Add a student and their score to see your class progress.</p>
+              <button class="button button-secondary" id="empty-add-button" type="button">Add your first student</button>
+            </div>
+          </div>
+          <p class="table-footer" id="roster-count">Showing 0 students</p>
+        </section>
+
+        <p class="data-note"><span aria-hidden="true">▣</span> Your roster is saved in this browser, so it will be here when you return.</p>
+        <p class="message" id="app-message" role="status" aria-live="polite"></p>
+      </main>
+
+      <footer>
+        <span>Made for focused teaching.</span>
+        <span>Scores are stored locally on this device.</span>
+      </footer>
+    </div>
+
+    <dialog id="student-dialog" aria-labelledby="dialog-title">
+      <form id="student-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">STUDENT DETAILS</p>
+            <h2 id="dialog-title">Add a student</h2>
+          </div>
+          <button class="icon-button close-button" id="close-dialog-button" type="button" aria-label="Close dialog">×</button>
+        </div>
+
+        <input id="student-id" name="studentId" type="hidden">
+        <label class="form-field" for="student-name">
+          <span>Student name</span>
+          <input id="student-name" name="name" type="text" maxlength="60" placeholder="e.g. Alex Morgan" required>
+        </label>
+        <label class="form-field" for="student-subject">
+          <span>Subject</span>
+          <input id="student-subject" name="subject" type="text" maxlength="50" placeholder="e.g. Mathematics" required>
+        </label>
+        <label class="form-field" for="student-score">
+          <span>Score <small>out of 100</small></span>
+          <input id="student-score" name="score" type="number" min="0" max="100" step="0.1" placeholder="e.g. 92" required>
+        </label>
+        <div class="dialog-actions">
+          <button class="button button-secondary" id="cancel-dialog-button" type="button">Cancel</button>
+          <button class="button button-primary" id="save-student-button" type="submit">Save student</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
